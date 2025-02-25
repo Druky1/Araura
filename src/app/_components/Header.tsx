@@ -20,13 +20,13 @@ function Header() {
               Features
             </Link>
             <Link
-              href="#pricing"
+              href="#testimonials"
               className="hidden md:inline text-sm tracking-tighter"
             >
-              Pricing
+              Testimonials
             </Link>
             <Link
-              href="#faq"
+              href="#testimonials"
               className="hidden md:inline text-sm tracking-tighter"
             >
               FAQ

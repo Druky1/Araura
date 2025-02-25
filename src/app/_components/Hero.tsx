@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import Image from "next/image";
+import { TextAnimate } from "@/components/magicui/text-animate";
 
 const instru = Instrument_Serif({
   subsets: ["latin"],
@@ -30,8 +31,7 @@ function Hero() {
           </span>
         </h1>
         <p className="mt-6 text-md lg:text-lg text-muted-foreground max-w-lg md:max-w-xl mx-auto tracking-tighter">
-          Capture your thoughts, ideas, and learnings in one place. Araura is an
-          AI app that helps you write better and reflect deeper.
+          Capture your thoughts, ideas, and learnings in one place. Araura is journal app that helps you write better and reflect deeper.
         </p>
         <Link href="/sign-in" className="inline-block mt-10 md:mt-14">
           <Button className="flex items-center justify-center whitespace-nowrap rounded-lg tracking-tighter ring-offset-background transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-4 py-2 text-md bg-black text-white/90 hover:bg-gradient-to-tr hover:from-orange-400 hover:via-red-400 hover:to-orange-400 hover:text-white shadow-lg">
