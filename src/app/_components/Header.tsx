@@ -26,7 +26,7 @@ function Header() {
               Testimonials
             </Link>
             <Link
-              href="#testimonials"
+              href="#faq"
               className="hidden md:inline text-sm tracking-tighter"
             >
               FAQ

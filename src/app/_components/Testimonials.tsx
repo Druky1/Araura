@@ -1,9 +1,9 @@
-import { Smile, Users2 } from "lucide-react";
+import { Users2 } from "lucide-react";
 import React from "react";
-import { Instrument_Serif } from "next/font/google";
-import { twMerge } from "tailwind-merge";
 import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/magicui/marquee";
+import { Instrument_Serif } from "next/font/google";
+import { twMerge } from "tailwind-merge";
 
 const instru = Instrument_Serif({
   subsets: ["latin"],
