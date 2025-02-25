@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { MessageCircleMore, Notebook } from "lucide-react";
+import { MessageCircleMore } from "lucide-react";
 
 const instru = Instrument_Serif({
   subsets: ["latin"],

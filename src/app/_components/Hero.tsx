@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import Image from "next/image";
-import { TextAnimate } from "@/components/magicui/text-animate";
+import { BlurFade } from "@/components/magicui/blur-fade";
+
 
 const instru = Instrument_Serif({
   subsets: ["latin"],
@@ -26,9 +27,11 @@ function Hero() {
             "text-5xl sm:text-7xl tracking-tight"
           )}
         >
+          
           <span className="bg-gradient-to-t  from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent">
             Write smarter, reflect deeper.
           </span>
+          
         </h1>
         <p className="mt-6 text-md lg:text-lg text-muted-foreground max-w-lg md:max-w-xl mx-auto tracking-tighter">
           Capture your thoughts, ideas, and learnings in one place. Araura is journal app that helps you write better and reflect deeper.
@@ -39,7 +42,7 @@ function Hero() {
             <Send />
           </Button>
         </Link>
-        <div className="mt-16 w-[680px] h-[480px] relative rounded-lg overflow-hidden border-8 ">
+        <div className="mt-16 w-full max-w-[680px] aspect-[17/12] relative rounded-lg overflow-hidden border-8">
           <Image
             src="/photo-2.jpg"
             alt="Dashboard Preview"

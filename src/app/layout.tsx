@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider appearance={{baseTheme: neobrutalism}}>
     <html lang="en">
       <body
-        className={`${inter.className} antialiased bg-[#F7F4ED]`}
+        className={`${inter.className} antialiased bg-[#F7F4ED] overflow-x-hidden`}
       >
         <main>
           {children}

@@ -111,7 +111,7 @@ function Testimonials() {
           Real stories from real writers, see how Araura transforms the way they
           express.
         </p>
-        <div className="relative flex w-[1200px] flex-col items-center justify-center overflow-hidden mt-14 bg-[#F7F4ED]">
+        <div className="relative flex w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl flex-col items-center justify-center overflow-x-hidden mt-14 bg-[#F7F4ED]">
           <Marquee pauseOnHover className="[--duration:20s]">
             {firstRow.map((review) => (
               <ReviewCard key={review.username} {...review} />

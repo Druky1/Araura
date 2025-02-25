@@ -8,8 +8,8 @@ import UserMenu from "./UserMenu";
 
 function Header() {
   return (
-    <header className="md:py-4">
-      <nav className="container mx-auto max-w-xl lg:max-w-3xl py-4 px-5 sm:px-6 lg:px-6 bg-black md:rounded-2xl sticky shadow-lg">
+    <header className="md:py-4 sticky top-0 z-10">
+      <nav className="container mx-auto max-w-xl lg:max-w-3xl py-4 px-5 sm:px-6 lg:px-6 bg-black md:rounded-2xl shadow-lg">
         <div className="flex justify-between items-center">
           <div className="flex justify-center items-center space-x-10 text-white/90">
             <Logo />
