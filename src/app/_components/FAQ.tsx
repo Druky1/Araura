@@ -39,7 +39,7 @@ function FAQ() {
       <Accordion
         type="single"
         collapsible
-        className="mx-auto md:max-w-3xl mt-16 max-w-md space-y-2"
+        className="mx-auto md:max-w-3xl mt-16 max-w-sm space-y-2"
       >
         <AccordionItem
           value="item-1"
@@ -79,7 +79,7 @@ function FAQ() {
         </AccordionItem>
       </Accordion>
       <div className=" text-center mt-5 tracking-tighter text-muted-foreground">
-        Have more questions? <a href="/contact" className="border-b border-black text-black">Contact us</a>
+        Have more questions? <a href="mailto:official.spatra@gmail.com" className="border-b border-black text-black">Contact us</a>
       </div>
     </section>
   );

@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String   @id @default(cuid())
+  clerkUserId String @unique
+  email    String   @unique
+  name     String?
+  imageUrl String?
+  collections Collection[] //  A list of collections (one user can have many collections).
+  entries   Entry[] // A list of entries (one user can have many entries). 
+  currentDraft Draft?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// This model is for collection of different entires the user has. 
+model Collection{
+  id String @id @default(cuid())
+  name String
+  description String?
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String // The foreign key 
+  entries Entry[] // A list of entries (one collection can have many entries).
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, userId]) // The collection name and userId associated with it must be unique for every collection
+}
+model Entry{
+  id String @id @default(cuid())
+  title String
+  content String @db.Text
+  mood    String
+  moodScore  Int
+  moodImageUrl String?
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: Cascade) // If a collection gets deleted, then the entry associated with it will also get deleted. Hence the cascade
+  collectionId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Draft{
+  id String @id @default(cuid())
+  title String?
+  content String? @db.Text
+  mood   String?
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String @unique // One draft per user
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

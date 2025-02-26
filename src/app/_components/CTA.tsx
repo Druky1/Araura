@@ -41,7 +41,8 @@ function CTA() {
             and let your words shape your legacy.
           </p>
           <Button className="flex items-center justify-center whitespace-nowrap rounded-lg tracking-tighter ring-offset-background transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-4 py-2 text-md bg-black text-white/90 hover:bg-gradient-to-tr hover:from-orange-400 hover:via-red-400 hover:to-orange-400 hover:text-white shadow-lg animate-bounce mt-6">
-            Get started for free
+          <Link href="/sign-in">Get started for free</Link>
+            
             <Send />
           </Button>
         </div>

@@ -5,8 +5,12 @@ import Link from "next/link";
 import { SignedIn, SignedOut} from "@clerk/nextjs";
 import { FolderOpen, PenBox } from "lucide-react";
 import UserMenu from "./UserMenu";
+import { checkUser } from "@/lib/checkUser";
 
-function Header() {
+async function Header() {
+  
+  await checkUser();
+
   return (
     <header className="md:py-4 sticky top-0 z-10">
       <nav className="container mx-auto max-w-xl lg:max-w-3xl py-4 px-5 sm:px-6 lg:px-6 bg-black md:rounded-2xl shadow-lg">
