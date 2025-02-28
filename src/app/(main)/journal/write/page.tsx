@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { getMoodById, MOODS } from "@/app/data/moods";
 import { Button } from "@/components/ui/button";
+import { BookCheck } from "lucide-react";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -132,8 +133,8 @@ const WriteNew = () => {
             {errors.collectionId && (<p className="text-red-500 text-sm">{errors.collectionId.message}</p>)}
         </div>
         <div className="mt-4 flex">
-          <Button className="bg-gradient-to-tr from-orange-400 via-red-400 to-orange-400 text-white">
-            Publish
+          <Button className="tracking-tight bg-gradient-to-tr from-orange-400 via-red-400 to-orange-400 text-white hover:from-orange-500 hover:via-red-500 hover:to-orange-500">
+            Save Entry
           </Button>
         </div>
       </form>
