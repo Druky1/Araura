@@ -123,3 +123,24 @@
 html{
   scroll-behavior:smooth;
 }
+
+.ql-container {
+  min-height: 40vh;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 5px 5px;
+  
+}
+
+.ql-editor {
+  height: 100%;
+  flex: 1;
+  overflow-y:auto;
+  width: 100%;
+}
+
+.ql-toolbar{
+  border-radius: 5px 5px 0 0;
+}
