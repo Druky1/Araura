@@ -10,11 +10,12 @@ import { revalidatePath } from "next/cache";
 export async function createJournalEntry(data: any){
   try {
     const {userId} = await auth();
+    
     if(!userId) throw new Error("Unauthorized!");
 
     // Arcjet Rate Limiting
     const user = await db.user.findUnique({
-      where: {id: userId}
+      where: {clerkUserId: userId}
     })
     if(!user) throw new Error("User Not Found!");
 
