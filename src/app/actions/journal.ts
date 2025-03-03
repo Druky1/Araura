@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { MOODS } from "../data/moods";
+import { getMoodById, MOODS } from "../data/moods";
 import { getPixaBayImage } from "./public";
 import { revalidatePath } from "next/cache";
 
@@ -47,4 +47,50 @@ export async function createJournalEntry(data: any){
   } catch (error : any) {
     throw new Error(error.message);
   }
-} 
+}
+
+export async function getJournalEntries({collectionId, orderBy} : {collectionId?: string | number, orderBy?: "asc" | "desc"} = {}){
+  try {
+    const {userId} = await auth();
+    if(!userId) throw new Error("Unauthorized!");
+
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId
+      }
+    })
+
+    const entries = await db.entry.findMany({
+      where: {
+        userId:user.id,
+        ...(collectionId === "unorganized" ? {collectionId: null} : collectionId ? {collectionId} : {}),
+      },
+      include: {
+        collection: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: orderBy ?? "desc"
+      }
+    });
+
+    const entriesWithMoodData = entries.map((entry : any) => ({
+      ...entry,
+      moodData: getMoodById(entry.mood)
+    }))
+
+    return {
+      success: true,
+      data: {
+        entries: entriesWithMoodData
+      }
+    }
+  } catch (error : any) {
+    return {success : false, error: error.message}
+  }
+
+}

@@ -123,7 +123,7 @@ const WriteNew = () => {
         <h1 className="tracking-tight text-muted-foreground md:text-center">
           Express yourself freely. Your thoughts are safe here.
         </h1>
-        {isLoading && <BarLoader color="orange" width={"100%"} />}
+        {isLoading && <BarLoader color="orange" width={"100%"} className="mt-5" />}
         <div className="space-y-2 mt-8">
           <label className="font-medium tracking-tight">Title</label>
           <Input
@@ -248,8 +248,7 @@ const WriteNew = () => {
           </Button>
         </div>
       </form>
-      <CollectionForm loading={createCollectionLoading} onSuccess={handleCreateCollection} open={isCollectionModalOpen} setOpen={setIsCollectionModalOpen}/>
-      
+      <CollectionForm loading={createCollectionLoading} onSuccess={handleCreateCollection} open={isCollectionModalOpen} setOpen={setIsCollectionModalOpen}/>    
     </div>
   );
 };
