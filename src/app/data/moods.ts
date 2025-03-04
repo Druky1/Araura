@@ -291,3 +291,11 @@ export const getMoodById = (moodId: string): Mood | undefined => {
   const upperCaseId = moodId.toUpperCase();
   return MOODS[upperCaseId];
 };
+
+export const getMoodTrend = (averageScore: number) => {
+  if(averageScore >= 8) return "You've been feeling amazing!";
+  if(averageScore >= 6) return "You've been doing well overall!";
+  if(averageScore >= 4) return "You've been okay-ish!";
+  if(averageScore >= 2) return "Life has been challenging, hasn't it?"
+  return "Don't give up, hardships will pass."
+}

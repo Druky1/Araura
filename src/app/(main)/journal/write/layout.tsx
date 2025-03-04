@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React, { Suspense } from "react";
 import {BarLoader} from "react-spinners";
-import Header from "../../_components/MainHeader";
 
 function WriteLayout({
   children,

@@ -138,7 +138,7 @@ const WriteNew = () => {
 
         <div className="space-y-2 mt-4">
           <label className="font-medium tracking-tight">
-            How are you feeling?
+            How are you feeling today?
           </label>
           <Controller
             name="mood"
@@ -170,7 +170,7 @@ const WriteNew = () => {
         </div>
         <div className="space-y-2 mt-4">
           <label className="font-medium tracking-tight">
-            {getMoodById(selectedMood)?.prompt ?? "What's on your mind?"}
+            {getMoodById(selectedMood)?.prompt ?? "What's going on in your world?"}
           </label>
           <Controller
             name="content"
