@@ -4,12 +4,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 const MoodAnalyticsSkeleton = () => {
   return (
     <div className="space-y-6">
-      <Skeleton className="h-12 w-60" />
-      {/* Stats Cards Skeleton */}
+      <Skeleton className="h-12 w-72" />
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {[1, 2, 3].map((i) => (
           <Card key={i}>
-            <CardHeader className="pb-2">
+            <CardHeader className="pb-4">
               <Skeleton className="h-4 w-24" />
             </CardHeader>
             <CardContent>
@@ -20,7 +19,7 @@ const MoodAnalyticsSkeleton = () => {
         ))}
       </div>
 
-      {/* Chart Skeleton */}
+      
       <Card>
         <CardHeader>
           <CardTitle>
@@ -29,11 +28,8 @@ const MoodAnalyticsSkeleton = () => {
         </CardHeader>
         <CardContent>
           <div className="h-[300px] w-full">
-            <div className="animate-pulse space-y-4">
-              {/* Chart area skeleton */}
+            <div className="animate-pulse space-y-4">    
               <div className="h-full w-full bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 rounded-lg opacity-75" />
-
-              {/* X-axis labels */}
               <div className="flex justify-between px-4">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Skeleton key={i} className="h-3 w-12" />
