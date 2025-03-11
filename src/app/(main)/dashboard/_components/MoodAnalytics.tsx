@@ -27,6 +27,7 @@ import { getMoodById, getMoodTrend } from "@/app/data/moods";
 import { Instrument_Serif } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { format, parseISO } from "date-fns";
+import DailyQuote from "./DailyQuote";
 
 const instru = Instrument_Serif({
   subsets: ["latin"],

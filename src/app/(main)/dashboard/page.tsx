@@ -4,6 +4,7 @@ import React from 'react'
 import MainHeader from '../_components/MainHeader';
 import Collections from './_components/Collections';
 import MoodAnalytics from './_components/MoodAnalytics';
+import DailyQuote from './_components/DailyQuote';
 
 const Dashboard = async () => {
 
@@ -24,7 +25,7 @@ const Dashboard = async () => {
       <MainHeader/>
       <div className='px-4 py-8 space-y-8'>
         <section className='space-y-8 max-w-7xl mx-auto'>
-          {/* Daily Quote Component */}
+        {/* <DailyQuote/> */}
         <MoodAnalytics />
         <Collections collections={collectionsData} groupEntriesByCollection={groupEntriesByCollection}/>
         </section>

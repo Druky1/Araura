@@ -1,5 +1,7 @@
 "use server";
 
+import { unstable_cache } from "next/cache";
+
 export async function getPixaBayImage(query : string){
   try {
     const response = await fetch(
@@ -12,3 +14,24 @@ export async function getPixaBayImage(query : string){
     throw new Error("Failed to fetch image from Pixabay");
   }
 }
+
+export const getDailyPrompt = unstable_cache(
+  async() => {
+    try {
+      const response = await fetch("https://api.adviceslip.com/advice", {
+        cache: "no-store"
+      })
+      const data = await response.json();
+      return data.slip.advice;
+    } catch (error : any) {
+      return {
+        success: false,
+        data: "How was your day today?"
+      }
+    }
+  }, ["daily-prompt"],
+  {
+    revalidate: 86400,
+    tags: ["daily-prompt"]
+  }
+)

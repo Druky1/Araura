@@ -46,7 +46,7 @@ const JournalPage = async ({ params }: any) => {
           <div className="flex flex-wrap gap-2">
             {entry.collection && (
               <Link href={`/collection/${entry.collection.id}`}>
-                <Badge className="p-1">Collection: {entry.collection.name}</Badge>
+                <Badge className="p-1 bg-gradient-to-tr from-orange-400 via-red-400 to-orange-400 text-white hover:from-orange-500 hover:via-red-500 hover:to-orange-500">Collection: {entry.collection.name}</Badge>
               </Link>
             )}
             <Badge
@@ -57,18 +57,19 @@ const JournalPage = async ({ params }: any) => {
                 borderColor: `var(--${mood?.color}-200)`,
               }}
             >
-              Feeling {mood?.label}
+              Feeling {mood?.label} {mood?.emoji}
             </Badge>
           </div>
         </div>
 
-        <hr/>
+        <div className="border-2 border-orange-200 py-6 px-4 rounded-xl">
 
         <div className="ql-snow">
-          <div className="ql-editor" dangerouslySetInnerHTML={{__html: entry.content}}/>
+          <div className="ql-editor tracking-tighter" dangerouslySetInnerHTML={{__html: entry.content}}/>
+        </div>
         </div>
 
-        <footer className="text-sm text-muted-foreground pt-4 border-t">
+        <footer className="text-sm text-muted-foreground pt-4 tracking-tight">
           Last updated {format(new Date(entry.updatedAt), "PPP 'at' p")}
         </footer>
       </div>

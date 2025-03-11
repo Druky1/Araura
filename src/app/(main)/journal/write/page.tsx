@@ -18,12 +18,19 @@ import {
 import { getMoodById, MOODS } from "@/app/data/moods";
 import { Button } from "@/components/ui/button";
 import useFetch from "@/app/hooks/use-fetch";
-import { createJournalEntry } from "@/app/actions/journal";
-import { useRouter } from "next/navigation";
+import {
+  createJournalEntry,
+  enhanceText,
+  getDraft,
+  getJournalEntry,
+  saveDraft,
+  updateJournalEntry,
+} from "@/app/actions/journal";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { createCollection, getCollections } from "@/app/actions/collection";
 import CollectionForm from "../../_components/CollectionDialog";
-
+import { Loader2, Sparkles } from "lucide-react";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -32,11 +39,38 @@ type ActionResult = {
 };
 
 const WriteNew = () => {
+  const editSearchParams = useSearchParams();
+  const editId = editSearchParams.get("edit");
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEnhancing, setIsEnhancing] = useState(false);
+
+  const [textContent, setTextContent] = useState("");
+
+  const {
+    loading: entryLoading,
+    data: existingEntry,
+    fn: fetchEntry,
+  } = useFetch(getJournalEntry);
+
+  const {
+    loading: draftLoading,
+    data: draftData,
+    fn: fetchDraft,
+  } = useFetch(getDraft);
+
+  const {
+    loading: savingDraft,
+    fn: saveDraftFn,
+    data: savedDraft,
+  } = useFetch(saveDraft);
+
   const {
     loading: actionLoading,
     fn: actionFn,
     data: actionResult,
-  } = useFetch<ActionResult>(createJournalEntry);
+  } = useFetch<ActionResult>(
+    isEditMode ? updateJournalEntry : createJournalEntry
+  );
 
   const {
     loading: collectionsLoading,
@@ -47,7 +81,7 @@ const WriteNew = () => {
   const {
     loading: createCollectionLoading,
     fn: createCollectionFn,
-    data: createdCollection ,
+    data: createdCollection,
   } = useFetch(createCollection);
 
   const router = useRouter();
@@ -58,9 +92,10 @@ const WriteNew = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
     watch,
-    setValue
+    setValue,
+    reset,
   } = useForm({
     resolver: zodResolver(journalSchema),
     defaultValues: {
@@ -77,40 +112,125 @@ const WriteNew = () => {
       ...data,
       moodScore: mood?.score,
       moodQuery: mood?.pixabayQuery,
+      ...(isEditMode && { id: editId }),
     });
   });
 
-  const isLoading = actionLoading || collectionsLoading;
+  const formData = watch();
+
+  const handleSaveDraft = async () => {
+    if (!isDirty) {
+      toast.error("No Changes To Save!");
+      return;
+    }
+    await saveDraftFn(formData);
+  };
+
+  useEffect(() => {
+    if (savedDraft?.success && !savingDraft) {
+      toast.success("Draft saved successfully!");
+    }
+  }, [savedDraft, savingDraft]);
+
+  const isLoading =
+    actionLoading ||
+    collectionsLoading ||
+    entryLoading ||
+    draftLoading ||
+    savingDraft;
+
+  // Fetch collections on page load
+  useEffect(() => {
+    fetchCollections();
+    if (editId) {
+      setIsEditMode(true);
+      fetchEntry(editId);
+    } else {
+      setIsEditMode(false);
+      fetchDraft();
+    }
+  }, [editId]);
+
+  useEffect(() => {
+    if (isEditMode && existingEntry) {
+      reset({
+        title: existingEntry.title || "",
+        content: existingEntry.content || "",
+        mood: existingEntry.mood || "",
+        collectionId: existingEntry.collectionId || "",
+      });
+      setTextContent(existingEntry.content || "");
+    } else if (draftData?.success && draftData?.data) {
+      reset({
+        title: draftData.data.title || "",
+        content: draftData.data.content || "",
+        mood: draftData.data.mood || "",
+        collectionId: "",
+      });
+      setTextContent(draftData.data.content || "");
+    } else {
+      reset({
+        title: "",
+        content: "",
+        mood: "",
+        collectionId: "",
+      });
+    }
+  }, [draftData, isEditMode, existingEntry, reset]);
 
   useEffect(() => {
     if (actionResult && !actionLoading) {
+      // Clear Draft On Entry Creation
+      if (!isEditMode) {
+        saveDraftFn({ title: "", content: "", mood: "" });
+      }
       router.push(
         `/collection/${
           actionResult.collectionId ? actionResult.collectionId : "unorganized"
         }`
       );
-      toast.success("Entry created successfully!");
+      toast.success(
+        `Entry ${isEditMode ? "updated" : "created"} successfully!`
+      );
     }
   }, [actionResult, actionLoading]);
 
-  // Fetch collections on page load
-  useEffect(() => {
-    fetchCollections();
-  }, []);
-
   // Handle newly collection creation
   useEffect(() => {
-    if(createdCollection) {
+    if (createdCollection) {
       setIsCollectionModalOpen(false);
       fetchCollections();
       setValue("collectionId", createdCollection.id);
-      toast.success(`Collection ${createdCollection.name} created successfully!`);
+      toast.success(
+        `Collection ${createdCollection.name} created successfully!`
+      );
     }
-  }, [createdCollection])
+  }, [createdCollection]);
 
-  const handleCreateCollection = async (data : any) => {
+  const handleCreateCollection = async (data: any) => {
     createCollectionFn(data);
-  }
+  };
+
+  const enhancedWriting = async () => {
+    if (!textContent) {
+      toast.error("Please write something to enhance!");
+      return;
+    }
+    setIsEnhancing(true);
+    try {
+      const enhancedText = await enhanceText(textContent);
+      if (enhancedText !== null) {
+        setTextContent(enhancedText);
+        setValue("content", enhancedText);
+        toast.success("Your writing has been enhanced by AI!");
+      }
+    } catch (error: any) {
+      console.error("Error enhancing writing:", error);
+      toast.error("Oops! Something went wrong with our AI!");
+    } finally {
+      setIsEnhancing(false);
+    }
+  };
 
   const selectedMood = watch("mood");
 
@@ -118,12 +238,16 @@ const WriteNew = () => {
     <div className="py-4 lg:max-w-7xl mx-auto">
       <form className="mx-auto" onSubmit={onSubmit}>
         <h1 className="text-5xl md:text-6xl tracking-tighter bg-gradient-to-t py-2 from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent md:text-center">
-          What&apos;s on your mind?
+          {isEditMode ? "Changed your mind?" : "What's on your mind?"}
         </h1>
         <h1 className="tracking-tight text-muted-foreground md:text-center">
-          Express yourself freely. Your thoughts are safe here.
+          {isEditMode
+            ? "Just write your heart out! 😄"
+            : "Express yourself freely. Your thoughts are safe here."}
         </h1>
-        {isLoading && <BarLoader color="orange" width={"100%"} className="mt-5" />}
+        {isLoading && (
+          <BarLoader color="orange" width={"100%"} className="mt-5" />
+        )}
         <div className="space-y-2 mt-8">
           <label className="font-medium tracking-tight">Title</label>
           <Input
@@ -170,7 +294,8 @@ const WriteNew = () => {
         </div>
         <div className="space-y-2 mt-4">
           <label className="font-medium tracking-tight">
-            {getMoodById(selectedMood)?.prompt ?? "What's going on in your world?"}
+            {getMoodById(selectedMood)?.prompt ??
+              "What's going on in your world?"}
           </label>
           <Controller
             name="content"
@@ -226,10 +351,12 @@ const WriteNew = () => {
                         <SelectItem key={collection.id} value={collection.id}>
                           {collection.name}
                         </SelectItem>
-                      )
+                      );
                     })}
                     <SelectItem value="new">
-                      <span className="text-orange-600 cursor-pointer">Create New Collection</span>
+                      <span className="text-orange-600 cursor-pointer">
+                        Create New Collection
+                      </span>
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -242,13 +369,58 @@ const WriteNew = () => {
             </p>
           )}
         </div>
-        <div className="mt-4 flex">
-          <Button className="tracking-tight bg-gradient-to-tr from-orange-400 via-red-400 to-orange-400 text-white hover:from-orange-500 hover:via-red-500 hover:to-orange-500" disabled={actionLoading}>
-            Save Entry
+        <div className="mt-4 flex space-x-2 md:space-x-4">
+          {!isEditMode && (
+            <Button
+              onClick={handleSaveDraft}
+              type="button"
+              variant={"outline"}
+              disabled={savingDraft || !isDirty}
+            >
+              {savingDraft && <Loader2 className="h-4 w-4 animate-spin" />}
+              Save Draft
+            </Button>
+          )}
+          <Button
+            className="tracking-tight bg-gradient-to-tr from-orange-400 via-red-400 to-orange-400 text-white hover:from-orange-500 hover:via-red-500 hover:to-orange-500"
+            disabled={actionLoading}
+          >
+            {isEditMode ? "Update Entry" : "Save Entry"}
           </Button>
+
+          <Button
+            className="tracking-tight bg-gradient-to-tr from-gray-900 via-gray-700 to-gray-900 text-white hover:from-black hover:via-gray-700 hover:to-black"
+            type="button"
+            onClick={enhancedWriting}
+            disabled={isEnhancing}
+          >
+            {isEnhancing ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <span className="hidden md:block">Enhance with AI</span>
+            )}
+            {!isEnhancing && <Sparkles className="h-4 w-4" />}
+          </Button>
+
+          {isEditMode && (
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push(`/journal/${existingEntry.id}`);
+              }}
+              variant={"destructive"}
+            >
+              Cancel
+            </Button>
+          )}
         </div>
       </form>
-      <CollectionForm loading={createCollectionLoading} onSuccess={handleCreateCollection} open={isCollectionModalOpen} setOpen={setIsCollectionModalOpen}/>    
+      <CollectionForm
+        loading={createCollectionLoading}
+        onSuccess={handleCreateCollection}
+        open={isCollectionModalOpen}
+        setOpen={setIsCollectionModalOpen}
+      />
     </div>
   );
 };

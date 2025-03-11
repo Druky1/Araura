@@ -9,7 +9,7 @@ const EditButton = ({entryId} : any) => {
   const router = useRouter();
 
   return (
-    <Button variant="outline" onClick={() => router.push(`/journal/write?edit=${entryId}`)}>
+    <Button variant="outline" className="tracking-tight" onClick={() => router.push(`/journal/write?edit=${entryId}`)}>
       <Edit/>
       Edit Entry
     </Button>

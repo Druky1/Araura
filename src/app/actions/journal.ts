@@ -5,6 +5,41 @@ import { auth } from "@clerk/nextjs/server";
 import { getMoodById, MOODS } from "../data/moods";
 import { getPixaBayImage } from "./public";
 import { revalidatePath } from "next/cache";
+import Groq from "groq-sdk";
+
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY!,
+})
+
+export async function enhanceText(text: string){
+  if(!text){
+    throw new Error("Provide text to enhance!")
+  }
+
+  try {
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful personal journal writing assistant. Improve the user's text by matching their personality while also making it cleaner, fixing grammmar and enhancing the overall style, keeping the original meaning."
+        },
+        {
+          role: "user",
+          content: `Enhance this text ${text} fitting my personality while also keeping the context! Don't say anything else.`
+        }
+      ],
+      max_tokens: 500,
+      temperature: 0.7
+    });
+
+    const enhancedText = response.choices[0].message.content;
+    return enhancedText;
+  } catch (error : any) {
+    console.log(error);
+    throw new Error("Failed to enhance text with AI, Please try again!")
+  }
+}
 
 export async function createJournalEntry(data: any) {
   try {
@@ -208,7 +243,8 @@ export async function updateJournalEntry(data : any) {
 
     const updatedEntry = await db.entry.update({
       where:{
-        id: data.id
+        id: data.id,
+        userId: user.id
       },
       data: {
         title: data.title,
@@ -222,7 +258,7 @@ export async function updateJournalEntry(data : any) {
 
     revalidatePath("/dashboard");
     revalidatePath(`/journal/${data.id}`)
-    return updatedEntry;
+    return { collectionId: updatedEntry.collectionId };
 
   } catch (error : any) {
     throw new Error(error.message);
@@ -249,7 +285,7 @@ export async function getDraft(){
 
     return {success: true, data: draft}
   } catch (error : any) {
-    return {success: false, error: error.message}
+    return {success: false, error: "Something went wrong while fetching the draft!"}
   }
 }
 export async function saveDraft(data : any){
@@ -283,6 +319,6 @@ export async function saveDraft(data : any){
     revalidatePath("/dashboard")
     return {success: true, data: draft}
   } catch (error : any) {
-    return {success: false, error: error.message}
+    return {success: false, error: "Something went wrong while saving draft!"}
   }
 }

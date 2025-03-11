@@ -49,7 +49,7 @@ const DeleteDialog = ({entryId} : any) => {
           <AlertDialogTrigger asChild>
             <Button variant="destructive">
               <Trash2 className="h-4 w-4" />
-              <span className="hidden md:block">Delete</span>
+              <span className="hidden md:block tracking-tight">Delete</span>
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -57,7 +57,7 @@ const DeleteDialog = ({entryId} : any) => {
               <AlertDialogTitle className="tracking-tight text-red-500">
                 Are you sure you want to delete this entry?
               </AlertDialogTitle>
-              <AlertDialogDescription>
+              <AlertDialogDescription className="tracking-tighter">
                 This action cannot be undone. This will permanently delete your entry.
               </AlertDialogDescription>
             </AlertDialogHeader>
