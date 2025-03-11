@@ -119,7 +119,7 @@ const JournalEntries = (entries: any) => {
         )}
       </div>
       <div className="text-sm text-muted-foreground">
-        Showing {filteredEntries.entries.length} of {entries?.entries.length}{" "}
+        Showing {filteredEntries.length} of {entries?.entries.length}{" "}
         entries
       </div>
       {filteredEntries.length === 0 ? (

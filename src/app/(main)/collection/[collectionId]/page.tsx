@@ -6,9 +6,10 @@ import JournalEntries from '../_components/JournalEntries';
 
 const CollectionPage = async({params} : any) => {
 
-  const {collectionId} = await params;
-  const entries = await getJournalEntries(collectionId);
+  const { collectionId } = await params;
+  const entries = await getJournalEntries({collectionId});
   const collection = await getCollection(collectionId);
+  
 
   return (
     <div className='space-y-6 md:max-w-7xl mx-auto mt-16 mb-4'>

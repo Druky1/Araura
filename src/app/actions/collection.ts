@@ -86,3 +86,36 @@ export const getCollection = async (collectionId : string) => {
     throw new Error(error.message);
   }
 }
+export const deleteCollection = async (collectionId : string) => {
+  try {
+    const {userId} = await auth();
+    if(!userId) throw new Error("Unauthorized!");
+
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId,
+      }
+    });
+
+    if(!user) throw new Error("User Not Found!");
+
+    const collection = await db.collection.findFirst({
+      where: {
+        userId: user.id,
+        id: collectionId
+      },
+    });
+    
+    if(!collection) throw new Error("Collection not found!");
+    
+    await db.collection.delete({
+      where: {
+        id: collectionId
+      }
+    })
+
+    return true;
+  } catch (error : any) {
+    throw new Error(error.message);
+  }
+}
