@@ -6,12 +6,10 @@ import Header from "./_components/Header";
 import Hero from "./_components/Hero";
 import Testimonials from "./_components/Testimonials";
 import Footer from "./_components/Footer";
-import { LoadingScreen } from "./_components/Loading-Screen";
 
 export default function Home() {
   return (
     <>
-    {/* <LoadingScreen/> */}
     <Header />
     <Hero/>
     <Features />

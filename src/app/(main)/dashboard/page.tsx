@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getCollections } from '@/app/actions/collection'
 import { getJournalEntries } from '@/app/actions/journal';
 import React from 'react'
