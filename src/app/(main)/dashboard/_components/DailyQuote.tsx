@@ -10,7 +10,7 @@ const DailyQuote = async () => {
   return (
     <section className=''>
       <div className='flex justify-center items-center p-4'>
-        <h1 className={twMerge(instru.className, "text-5xl bg-gradient-to-t from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent p-2")}>
+        <h1 className={twMerge(instru.className, "text-3xl md:text-5xl bg-gradient-to-t from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent p-2 border-t-2 border-b-2 border-orange-200")}>
           {advice ? advice : "Have a wonderful day!"}
         </h1>      
       </div>

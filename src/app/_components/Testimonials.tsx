@@ -15,38 +15,38 @@ const reviews = [
   {
     name: "Jack",
     username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
+    body: "I've never used anything like this before. It's amazing. I love it.",
+    img: "https://notion-avatar.app/api/svg/eyJmYWNlIjo5LCJub3NlIjo4LCJtb3V0aCI6MSwiZXllcyI6MSwiZXllYnJvd3MiOjcsImdsYXNzZXMiOjUsImhhaXIiOjEwLCJhY2Nlc3NvcmllcyI6MCwiZGV0YWlscyI6MCwiYmVhcmQiOjAsImZsaXAiOjAsImNvbG9yIjoiI2ZhNTQxYyIsInNoYXBlIjoiY2lyY2xlIn0=",
   },
   {
     name: "Jill",
     username: "@jill",
-    body: "I used to struggle with organizing my thoughts. Now, my ideas flow effortlessly onto the page.",
-    img: "https://avatar.vercel.sh/jill",
+    body: "I used to struggle with organizing my thoughts. Now, my ideas flow effortlessly onto the journal.",
+    img: "https://notion-avatar.app/api/svg/eyJmYWNlIjoxNCwibm9zZSI6MTAsIm1vdXRoIjo5LCJleWVzIjoxMCwiZXllYnJvd3MiOjEsImdsYXNzZXMiOjMsImhhaXIiOjU0LCJhY2Nlc3NvcmllcyI6MCwiZGV0YWlscyI6MCwiYmVhcmQiOjAsImZsaXAiOjAsImNvbG9yIjoidHJhbnNwYXJlbnQiLCJzaGFwZSI6ImNpcmNsZSJ9",
   },
   {
     name: "John",
     username: "@john",
     body: "As someone who writes daily, I can confidently say this is the best online journal I've ever used.",
-    img: "https://avatar.vercel.sh/john",
+    img: "https://notion-avatar.app/api/svg/eyJmYWNlIjozLCJub3NlIjo5LCJtb3V0aCI6MTQsImV5ZXMiOjEwLCJleWVicm93cyI6OSwiZ2xhc3NlcyI6NCwiaGFpciI6NCwiYWNjZXNzb3JpZXMiOjAsImRldGFpbHMiOjAsImJlYXJkIjowLCJmbGlwIjowLCJjb2xvciI6InRyYW5zcGFyZW50Iiwic2hhcGUiOiJjaXJjbGUifQ==",
   },
   {
     name: "Jane",
     username: "@jane",
     body: "I was skeptical at first, but wow—this is like having a professional editor in my pocket!",
-    img: "https://avatar.vercel.sh/jane",
+    img: "https://notion-avatar.app/api/svg/eyJmYWNlIjoxMywibm9zZSI6MTAsIm1vdXRoIjoxNCwiZXllcyI6MSwiZXllYnJvd3MiOjQsImdsYXNzZXMiOjEzLCJoYWlyIjo1MiwiYWNjZXNzb3JpZXMiOjAsImRldGFpbHMiOjAsImJlYXJkIjowLCJmbGlwIjowLCJjb2xvciI6InRyYW5zcGFyZW50Iiwic2hhcGUiOiJjaXJjbGUifQ==",
   },
   {
     name: "Jenny",
     username: "@jenny",
     body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jenny",
+    img: "https://notion-avatar.app/api/svg/eyJmYWNlIjoxMiwibm9zZSI6MTMsIm1vdXRoIjoxMSwiZXllcyI6MCwiZXllYnJvd3MiOjQsImdsYXNzZXMiOjAsImhhaXIiOjU0LCJhY2Nlc3NvcmllcyI6MCwiZGV0YWlscyI6MCwiYmVhcmQiOjAsImZsaXAiOjAsImNvbG9yIjoidHJhbnNwYXJlbnQiLCJzaGFwZSI6ImNpcmNsZSJ9",
   },
   {
     name: "Laura",
     username: "@laura",
     body: "It's like having a pocket journal, pretty easy to use ngl.",
-    img: "https://avatar.vercel.sh/james",
+    img: "https://notion-avatar.app/api/svg/eyJmYWNlIjoyLCJub3NlIjo1LCJtb3V0aCI6MiwiZXllcyI6NywiZXllYnJvd3MiOjEyLCJnbGFzc2VzIjo2LCJoYWlyIjozMCwiYWNjZXNzb3JpZXMiOjAsImRldGFpbHMiOjAsImJlYXJkIjowLCJmbGlwIjowLCJjb2xvciI6InRyYW5zcGFyZW50Iiwic2hhcGUiOiJjaXJjbGUifQ==",
   },
 ];
 

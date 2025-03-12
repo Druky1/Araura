@@ -25,7 +25,7 @@ const Dashboard = async () => {
       <MainHeader/>
       <div className='px-4 py-8 space-y-8'>
         <section className='space-y-8 max-w-7xl mx-auto'>
-        {/* <DailyQuote/> */}
+        <DailyQuote/>
         <MoodAnalytics />
         <Collections collections={collectionsData} groupEntriesByCollection={groupEntriesByCollection}/>
         </section>

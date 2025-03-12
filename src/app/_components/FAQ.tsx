@@ -77,6 +77,17 @@ function FAQ() {
             devices. A dedicated mobile app is coming soon!
           </AccordionContent>
         </AccordionItem>
+        <AccordionItem
+          value="item-4"
+          className="rounded-lg border-2 border-orange-200 px-4 shadow-md tracking-tight"
+        >
+          <AccordionTrigger className="text-base">
+            How can I use AI in this journal?
+          </AccordionTrigger>
+          <AccordionContent>
+            Simply start writing and our AI will enhance it with a single click.
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
       <div className=" text-center mt-5 tracking-tighter text-muted-foreground">
         Have more questions? <a href="mailto:official.spatra@gmail.com" className="border-b border-black text-black">Contact us</a>
