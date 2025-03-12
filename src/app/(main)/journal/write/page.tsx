@@ -304,7 +304,10 @@ const WriteNew = () => {
               <ReactQuill
                 theme="snow"
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(value) => {
+                  field.onChange(value); // Update form state
+                  setTextContent(value); // Sync with local state
+                }}
                 modules={{
                   toolbar: [
                     [{ header: "1" }, { header: "2" }, { font: [] }],
