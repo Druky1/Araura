@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { deleteCollection as deleteCollectionAction } from "@/app/actions/collection";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
