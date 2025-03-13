@@ -39,7 +39,7 @@ function FAQ() {
       <Accordion
         type="single"
         collapsible
-        className="mx-auto md:max-w-3xl mt-16 max-w-[380px] space-y-2"
+        className="mx-auto md:max-w-3xl mt-16 max-w-xs space-y-2"
       >
         <AccordionItem
           value="item-1"
