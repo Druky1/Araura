@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{baseTheme: neobrutalism}}>
+    <ClerkProvider appearance={{baseTheme: neobrutalism, layout: {unsafe_disableDevelopmentModeWarnings: true}}} >
     <html lang="en">
       <body
         className={`${inter.className} antialiased bg-[#F7F4ED] overflow-x-hidden`}
