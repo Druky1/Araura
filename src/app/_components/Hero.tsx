@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import Image from "next/image";
-import { BlurFade } from "@/components/magicui/blur-fade";
 
 
 const instru = Instrument_Serif({

@@ -16,22 +16,28 @@ export async function getPixaBayImage(query : string){
 }
 
 export const getDailyPrompt = unstable_cache(
-  async() => {
+  async () => {
     try {
-      const response = await fetch("https://api.adviceslip.com/advice", {
+      const response = await fetch("https://api.api-ninjas.com/v1/quotes", {
+        headers: {
+          'X-Api-Key': process.env.X_API_KEY!, // Access the API key from .env
+          'Content-Type': 'application/json',
+        },
         cache: "no-store"
-      })
-      const data = await response.json();
-      return data.slip.advice;
-    } catch (error : any) {
-      return {
-        success: false,
-        data: "How was your day today?"
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data[0]?.quote || "How was your day today?"; 
+      } else {
+        return "How was your day today?";
       }
+    } catch (error) {
+      return "How was your day today?";
     }
-  }, ["daily-prompt"],
+  }, 
+  ["daily-prompt"],
   {
     revalidate: 86400,
     tags: ["daily-prompt"]
   }
-)
+);
