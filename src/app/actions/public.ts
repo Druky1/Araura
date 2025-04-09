@@ -20,7 +20,7 @@ export const getDailyPrompt = unstable_cache(
     try {
       const response = await fetch("https://api.api-ninjas.com/v1/quotes", {
         headers: {
-          'X-Api-Key': process.env.X_API_KEY!, // Access the API key from .env
+          'X-Api-Key': process.env.X_API_KEY!,
           'Content-Type': 'application/json',
         },
         cache: "no-store"
